@@ -1,102 +1,107 @@
-// pages/dashboard.js
-"use client";
+// src/app/black-screen/page.tsx
 
-import styled from 'styled-components';
-import { FaLightbulb, FaLock, FaCar, FaKey, FaCog } from 'react-icons/fa';
-import { AiFillCar } from 'react-icons/ai';
-import { MdDirectionsCar, MdSecurity, MdMiscellaneousServices } from 'react-icons/md';
+'use client';  // Add this directive to mark as a Client Component
 
-const Container = styled.div`
-  display: flex;
-  height: 100vh;
-`;
+import Head from 'next/head';
+import React, { useEffect, useState } from 'react';
 
-const Sidebar = styled.div`
-  width: 250px;
-  background: #1c1c1c;
-  color: #fff;
-  padding: 20px;
-`;
+const BlackScreen: React.FC = () => {
+  const [step, setStep] = useState(0);
 
-const MainContent = styled.div`
-  flex: 1;
-  background: #000;
-  color: #fff;
-  padding: 20px;
-`;
+  useEffect(() => {
+    const timeouts = [
+      setTimeout(() => setStep(1), 1000), // Namaste!
+      setTimeout(() => setStep(2), 4000), // Hello!
+      setTimeout(() => setStep(3), 7000), // Namaskara!
+      setTimeout(() => setStep(4), 10000), // Welcome to
+      setTimeout(() => setStep(5), 13000)  // WIPOD
+    ];
 
-const MenuItem = styled.div`
-  display: flex;
-  align-items: center;
-  padding: 10px 0;
-  cursor: pointer;
+    return () => timeouts.forEach(clearTimeout);
+  }, []);
 
-  &:hover {
-    background: #333;
-  }
-
-  svg {
-    margin-right: 10px;
-  }
-`;
-
-const ContentSection = styled.div`
-  margin-bottom: 20px;
-`;
-
-const Slider = styled.input`
-  width: 100%;
-`;
-
-const Button = styled.button`
-  background: #333;
-  color: #fff;
-  border: none;
-  padding: 10px 20px;
-  margin-right: 10px;
-  cursor: pointer;
-
-  &:hover {
-    background: #555;
-  }
-`;
-
-const Dashboard = () => {
   return (
-    <Container>
-      <Sidebar>
-        <MenuItem><FaLightbulb /> Quick Controls</MenuItem>
-        <MenuItem><FaLightbulb /> Lights</MenuItem>
-        <MenuItem><FaLock /> Locks</MenuItem>
-        <MenuItem><MdDirectionsCar /> Display</MenuItem>
-        <MenuItem><FaCar /> Driving</MenuItem>
-        <MenuItem><FaKey /> Autopilot</MenuItem>
-        <MenuItem><MdSecurity /> Safety & Security</MenuItem>
-        <MenuItem><MdMiscellaneousServices /> Service</MenuItem>
-      </Sidebar>
-      <MainContent>
-        <ContentSection>
-          <h3>Display Brightness</h3>
-          <Slider type="range" min="0" max="100" />
-        </ContentSection>
-        <ContentSection>
-          <h3>Exterior Lights</h3>
-          <Button>off</Button>
-          <Button>parking</Button>
-          <Button>10%</Button>
-          <Button>on</Button>
-          <Button>auto</Button>
-          <Button>front fog</Button>
-        </ContentSection>
-        <ContentSection>
-          <h3>Adjustments</h3>
-          <Button>MIRRORS</Button>
-          <Button>STEERING WHEEL</Button>
-          <Button>fold mirrors</Button>
-        </ContentSection>
-      </MainContent>
-    </Container>
+    <>
+      <Head>
+        <title>Black Screen</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" />
+        <link href="https://fonts.googleapis.com/css2?family=Mukta:wght@400&display=swap" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@400;700&display=swap" rel="stylesheet" />
+      </Head>
+      <div className="container">
+        {step === 1 && <h1 className="namaste">नमस्ते!</h1>}
+        {step === 2 && <h1 className="hello">Hello!</h1>}
+        {step === 3 && <h1 className="namaskara">ನಮಸ್ಕಾರ!</h1>}
+        {step === 4 && <h1 className="welcome-to">Welcome to</h1>}
+        {step === 5 && <h1 className="wipod">WIPOD</h1>}
+      </div>
+      <style jsx>{`
+        .container {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          height: 100vh;
+          background-color: black;
+          overflow: hidden;
+          position: relative;
+          flex-direction: column;
+        }
+        .namaste, .hello, .namaskara, .welcome-to, .wipod {
+          color: white;
+          font-size: 80px;
+          position: absolute;
+          opacity: 0;
+        }
+        .namaste {
+          font-family: 'Mukta', sans-serif;
+          animation: appear 3s forwards, disappear 2s 2s forwards, brighten 1s 2s forwards; /* Appear, brighten, and then disappear */
+        }
+        .hello {
+          font-family: 'Urbanist', sans-serif;
+          animation: appear 3s forwards, disappear 1s 2s forwards; /* Appear and then disappear */
+        }
+        .namaskara {
+          font-family: 'Urbanist', sans-serif;
+          animation: appear 3s forwards, disappear 1s 2s forwards; /* Appear and then disappear */
+        }
+        .welcome-to {
+          font-family: 'Urbanist', sans-serif;
+          animation: appear 3s forwards, disappear 1s 2s forwards; /* Appear and then disappear */
+        }
+        .wipod {
+          font-family: 'Urbanist', sans-serif;
+          animation: appear 4s forwards, brighten 1s 1s forwards; /* Appear and then brighten */
+        }
+
+        @keyframes appear {
+          from {
+            opacity: 0;
+          }
+          to {
+            opacity: 1;
+          }
+        }
+        @keyframes disappear {
+          from {
+            opacity: 1;
+          }
+          to {
+            opacity: 0;
+          }
+        }
+        @keyframes brighten {
+          from {
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+          }
+          to {
+            text-shadow: 0 0 20px rgba(255, 255, 255, 1);
+          }
+        }
+      `}</style>
+    </>
   );
 };
 
-export default Dashboard;
+export default BlackScreen;
